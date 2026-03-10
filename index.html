@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h3>Relay Control</h3>
+
+<div>
+    <h4>Relay 1</h4>
+    <button onclick="send('on1')">ON</button>
+    <button onclick="send('off1')">OFF</button>
+</div>
+
+<div>
+    <h4>Relay 2</h4>
+    <button onclick="send('on2')">ON</button>
+    <button onclick="send('off2')">OFF</button>
+</div>
+
+<div>
+    <h4>Relay 3</h4>
+    <button onclick="send('on3')">ON</button>
+    <button onclick="send('off3')">OFF</button>
+</div>
+
+<div>
+    <h4>Relay 4</h4>
+    <button onclick="send('on4')">ON</button>
+    <button onclick="send('off4')">OFF</button>
+</div>
+
+<script>
+
+const ws = new WebSocket("wss://upscontroller.onrender.com");
+
+ws.onopen = () => {
+    console.log("Connected to server");
+};
+
+ws.onclose = () => {
+    console.log("Disconnected");
+};
+
+ws.onerror = (e) => {
+    console.log("WebSocket error", e);
+};
+
+function send(cmd) {
+    if (ws.readyState === WebSocket.OPEN) {
+        ws.send(cmd);
+    }
+}
+
+</script>
+
+</body>
+</html>
